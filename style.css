@@ -1,110 +1,175 @@
-body {
-      background: linear-gradient(135deg, #2b005e, #0a174e);
+/* ======== CONFIGURAÇÃO GERAL ======== */
+* {
+  margin: 0;
+    padding: 0;
+      box-sizing: border-box;
         font-family: "Poppins", sans-serif;
-          color: #fff;
-            display: flex;
-              justify-content: center;
-                align-items: center;
-                  height: 100vh;
-                    margin: 0;
+        }
+
+        body {
+          background: linear-gradient(135deg, #230046, #0a174e);
+            color: #fff;
+              display: flex;
+                justify-content: center;
+                  align-items: center;
+                    min-height: 100vh;
                     }
 
+                    /* ======== CONTAINER PRINCIPAL ======== */
                     .container {
                       background: rgba(255, 255, 255, 0.08);
                         border-radius: 20px;
-                          padding: 25px;
+                          padding: 30px 25px;
                             width: 90%;
                               max-width: 450px;
-                                box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-                                }
+                                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+                                  backdrop-filter: blur(8px);
+                                    transition: 0.3s;
+                                    }
 
-                                h1 {
-                                  text-align: center;
-                                    color: #c5a3ff;
-                                      margin-bottom: 20px;
+                                    .container:hover {
+                                      transform: scale(1.01);
                                       }
 
-                                      label {
-                                        display: block;
-                                          margin-bottom: 8px;
-                                          }
+                                      /* ======== TÍTULOS ======== */
+                                      h1 {
+                                        text-align: center;
+                                          color: #cfaaff;
+                                            margin-bottom: 25px;
+                                              font-size: 1.8em;
+                                                letter-spacing: 1px;
+                                                }
 
-                                          input {
-                                            width: 100%;
-                                              padding: 10px;
-                                                margin-bottom: 10px;
-                                                  border: none;
-                                                    border-radius: 10px;
-                                                      background-color: rgba(255, 255, 255, 0.2);
-                                                        color: #fff;
-                                                          font-size: 16px;
-                                                          }
+                                                h2 {
+                                                  margin-top: 25px;
+                                                    color: #9b87ff;
+                                                      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                                                        padding-bottom: 5px;
+                                                        }
 
-                                                          input::placeholder {
-                                                            color: #ccc;
-                                                            }
+                                                        /* ======== CAMPOS DE ENTRADA ======== */
+                                                        label {
+                                                          display: block;
+                                                            margin-bottom: 8px;
+                                                              font-weight: 500;
+                                                                color: #ddd;
+                                                                }
 
-                                                            button {
-                                                              background-color: #7a2cff;
-                                                                border: none;
-                                                                  border-radius: 10px;
-                                                                    color: white;
-                                                                      padding: 10px;
-                                                                        width: 100%;
-                                                                          font-size: 16px;
-                                                                            cursor: pointer;
-                                                                              transition: 0.3s;
-                                                                              }
-
-                                                                              button:hover {
-                                                                                background-color: #9f5cff;
-                                                                                }
-
-                                                                                h2 {
-                                                                                  margin-top: 20px;
-                                                                                    color: #a77fff;
+                                                                input {
+                                                                  width: 100%;
+                                                                    padding: 10px 12px;
+                                                                      margin-bottom: 12px;
+                                                                        border: none;
+                                                                          border-radius: 12px;
+                                                                            background: rgba(255, 255, 255, 0.15);
+                                                                              color: #fff;
+                                                                                font-size: 16px;
+                                                                                  outline: none;
+                                                                                    transition: background 0.3s;
                                                                                     }
 
-                                                                                    ul {
-                                                                                      list-style: none;
-                                                                                        padding: 0;
+                                                                                    input:focus {
+                                                                                      background: rgba(255, 255, 255, 0.25);
+                                                                                      }
+
+                                                                                      input::placeholder {
+                                                                                        color: #c7c7c7;
                                                                                         }
 
-                                                                                        li {
-                                                                                          background-color: rgba(255, 255, 255, 0.1);
-                                                                                            margin: 8px 0;
-                                                                                              padding: 10px;
-                                                                                                border-radius: 8px;
-                                                                                                  display: flex;
-                                                                                                    justify-content: space-between;
-                                                                                                      align-items: center;
-                                                                                                      }
+                                                                                        /* ======== BOTÕES ======== */
+                                                                                        button {
+                                                                                          background: linear-gradient(135deg, #7a2cff, #3f00ff);
+                                                                                            border: none;
+                                                                                              border-radius: 12px;
+                                                                                                color: white;
+                                                                                                  padding: 10px;
+                                                                                                    width: 100%;
+                                                                                                      font-size: 16px;
+                                                                                                        font-weight: 500;
+                                                                                                          cursor: pointer;
+                                                                                                            transition: all 0.3s;
+                                                                                                            }
 
-                                                                                                      li span {
-                                                                                                        font-weight: bold;
-                                                                                                        }
+                                                                                                            button:hover {
+                                                                                                              background: linear-gradient(135deg, #9c66ff, #5a30ff);
+                                                                                                                transform: scale(1.02);
+                                                                                                                }
 
-                                                                                                        .remove {
-                                                                                                          background-color: #ff4b5c;
-                                                                                                            border: none;
-                                                                                                              border-radius: 8px;
-                                                                                                                padding: 5px 10px;
-                                                                                                                  color: white;
-                                                                                                                    cursor: pointer;
-                                                                                                                    }
-
-                                                                                                                    .remove:hover {
-                                                                                                                      background-color: #ff6f7a;
+                                                                                                                /* ======== LISTA DE CONTAS ======== */
+                                                                                                                ul {
+                                                                                                                  list-style: none;
+                                                                                                                    padding: 0;
+                                                                                                                      margin-top: 15px;
                                                                                                                       }
 
-                                                                                                                      .resumo {
-                                                                                                                        margin-top: 20px;
-                                                                                                                          background-color: rgba(255, 255, 255, 0.1);
-                                                                                                                            padding: 10px;
+                                                                                                                      li {
+                                                                                                                        background: rgba(255, 255, 255, 0.1);
+                                                                                                                          margin: 8px 0;
+                                                                                                                            padding: 10px 14px;
                                                                                                                               border-radius: 10px;
-                                                                                                                                text-align: center;
-                                                                                                                                }
+                                                                                                                                display: flex;
+                                                                                                                                  justify-content: space-between;
+                                                                                                                                    align-items: center;
+                                                                                                                                      transition: background 0.3s;
+                                                                                                                                      }
 
-                                                                                                                                .resumo p {
-                                                                                                                                  margin: 5px 0;
-                                                                                                                                  }
+                                                                                                                                      li:hover {
+                                                                                                                                        background: rgba(255, 255, 255, 0.2);
+                                                                                                                                        }
+
+                                                                                                                                        li span {
+                                                                                                                                          font-weight: 500;
+                                                                                                                                            color: #e5daff;
+                                                                                                                                            }
+
+                                                                                                                                            /* ======== BOTÃO REMOVER ======== */
+                                                                                                                                            .remove {
+                                                                                                                                              background-color: #ff4b5c;
+                                                                                                                                                border: none;
+                                                                                                                                                  border-radius: 8px;
+                                                                                                                                                    padding: 5px 10px;
+                                                                                                                                                      color: white;
+                                                                                                                                                        cursor: pointer;
+                                                                                                                                                          font-size: 14px;
+                                                                                                                                                            transition: 0.3s;
+                                                                                                                                                            }
+
+                                                                                                                                                            .remove:hover {
+                                                                                                                                                              background-color: #ff6b7d;
+                                                                                                                                                                transform: scale(1.05);
+                                                                                                                                                                }
+
+                                                                                                                                                                /* ======== RESUMO ======== */
+                                                                                                                                                                .resumo {
+                                                                                                                                                                  margin-top: 25px;
+                                                                                                                                                                    background-color: rgba(255, 255, 255, 0.1);
+                                                                                                                                                                      padding: 15px;
+                                                                                                                                                                        border-radius: 12px;
+                                                                                                                                                                          text-align: center;
+                                                                                                                                                                            line-height: 1.6;
+                                                                                                                                                                            }
+
+                                                                                                                                                                            .resumo p {
+                                                                                                                                                                              margin: 6px 0;
+                                                                                                                                                                                font-size: 15px;
+                                                                                                                                                                                }
+
+                                                                                                                                                                                .resumo span {
+                                                                                                                                                                                  color: #cfaaff;
+                                                                                                                                                                                    font-weight: 600;
+                                                                                                                                                                                    }
+
+                                                                                                                                                                                    /* ======== RESPONSIVIDADE ======== */
+                                                                                                                                                                                    @media (max-width: 400px) {
+                                                                                                                                                                                      .container {
+                                                                                                                                                                                          padding: 20px;
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                              h1 {
+                                                                                                                                                                                                  font-size: 1.5em;
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                      button {
+                                                                                                                                                                                                          font-size: 15px;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                        }
