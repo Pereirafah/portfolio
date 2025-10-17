@@ -1,25 +1,48 @@
-const expand = document.getElementById("mostrarMais");
-const text = document.getElementById("text");
+const listaContas = document.getElementById("lista-contas");
+const totalContas = document.getElementById("total-contas");
+const diferenca = document.getElementById("diferenca");
+const dinheiroInput = document.getElementById("dinheiro");
 
+let contas = [];
 
-expand.addEventListener('click', () => {
-    if (text.classList.contains('expand')) {
-        text.classList.remove('expand');
-      } else {
-        text.classList.add('expand');
-      }
-})
+document.getElementById("adicionar").addEventListener("click", () => {
+  const descricao = document.getElementById("descricao").value.trim();
+    const valor = parseFloat(document.getElementById("valor").value);
 
-const expand2 = document.getElementById("mostrarMais2");
-const text2 = document.getElementById("text2");
+      if (!descricao || isNaN(valor) || valor <= 0) {
+          alert("Preencha uma descrição e um valor válido!");
+              return;
+                }
 
+                  contas.push({ descricao, valor });
+                    document.getElementById("descricao").value = "";
+                      document.getElementById("valor").value = "";
+                        atualizarLista();
+                        });
 
-expand2.addEventListener('click', () => {
-    if (text2.classList.contains('expand')) {
-        text2.classList.remove('expand');
-      } else {
-        text2.classList.add('expand');
-      }
-})
+                        dinheiroInput.addEventListener("input", atualizarResumo);
 
+                        function atualizarLista() {
+                          listaContas.innerHTML = "";
+                            contas.forEach((conta, index) => {
+                                const li = document.createElement("li");
+                                    li.innerHTML = `
+                                          <span>${conta.descricao}: R$ ${conta.valor.toFixed(2)}</span>
+                                                <button class="remove" onclick="removerConta(${index})">X</button>
+                                                    `;
+                                                        listaContas.appendChild(li);
+                                                          });
+                                                            atualizarResumo();
+                                                            }
 
+                                                            function removerConta(index) {
+                                                              contas.splice(index, 1);
+                                                                atualizarLista();
+                                                                }
+
+                                                                function atualizarResumo() {
+                                                                  const total = contas.reduce((soma, conta) => soma + conta.valor, 0);
+                                                                    const dinheiro = parseFloat(dinheiroInput.value) || 0;
+                                                                      totalContas.textContent = total.toFixed(2);
+                                                                        diferenca.textContent = (dinheiro - total).toFixed(2);
+                                                                        }
