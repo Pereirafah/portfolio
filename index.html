@@ -1,35 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Controle de Contas</title>
-        <link rel="stylesheet" href="style.css" />
-        </head>
-        <body>
-          <div class="container">
-              <h1>💰 Controle de Contas</h1>
+  <meta charset="UTF-8">
+  <title>Conexão Acessível</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-                  <div class="saldo-box">
-                        <label for="dinheiro">Dinheiro guardado (R$):</label>
-                              <input type="number" id="dinheiro" placeholder="Ex: 100" />
-                                  </div>
+<header>
+  <h1>🤖 Conexão Acessível</h1>
+  <p>IA para inclusão real</p>
+</header>
 
-                                      <div class="add-conta">
-                                            <input type="text" id="descricao" placeholder="Ex: Conta de luz" />
-                                                  <input type="number" id="valor" placeholder="Valor (R$)" />
-                                                        <button id="adicionar">Adicionar</button>
-                                                            </div>
+<main>
 
-                                                                <h2>Minhas contas</h2>
-                                                                    <ul id="lista-contas"></ul>
+  <!-- CHAT -->
+  <section class="chat-container">
+    <div id="chat-box"></div>
 
-                                                                        <div class="resumo">
-                                                                              <p><strong>Total das contas:</strong> R$ <span id="total-contas">0.00</span></p>
-                                                                                    <p><strong>Diferença (Dinheiro - Contas):</strong> R$ <span id="diferenca">0.00</span></p>
-                                                                                        </div>
-                                                                                          </div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Digite sua necessidade..." />
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </section>
 
-                                                                                            <script src="script.js"></script>
-                                                                                            </body>
-                                                                                            </html>
+  <!-- RESULTADO -->
+  <section id="result" class="hidden">
+    <h2>🔍 Análise da IA</h2>
+    <p id="analysisText"></p>
+
+    <button onclick="createTicket()">Abrir chamado</button>
+  </section>
+
+  <!-- CHAMADO -->
+  <section id="ticket" class="hidden">
+    <h2>🎉 Chamado criado</h2>
+    <p id="ticketInfo"></p>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="dashboard">
+    <h2>📊 Dashboard</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Tempo médio</h3>
+        <p>2,3 dias</p>
+      </div>
+
+      <div class="card">
+        <h3>Principal problema</h3>
+        <p>Sistemas internos</p>
+      </div>
+
+      <div class="card alert">
+        <h3>⚠️ Alerta</h3>
+        <p>Sistema de ponto com falhas</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

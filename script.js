@@ -1,48 +1,37 @@
-const listaContas = document.getElementById("lista-contas");
-const totalContas = document.getElementById("total-contas");
-const diferenca = document.getElementById("diferenca");
-const dinheiroInput = document.getElementById("dinheiro");
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chatBox = document.getElementById("chat-box");
 
-let contas = [];
+  const userText = input.value;
 
-document.getElementById("adicionar").addEventListener("click", () => {
-  const descricao = document.getElementById("descricao").value.trim();
-    const valor = parseFloat(document.getElementById("valor").value);
+  if (!userText) return;
 
-      if (!descricao || isNaN(valor) || valor <= 0) {
-          alert("Preencha uma descrição e um valor válido!");
-              return;
-                }
+  // Mensagem do usuário
+  const userMsg = document.createElement("div");
+  userMsg.className = "message user";
+  userMsg.innerText = userText;
+  chatBox.appendChild(userMsg);
 
-                  contas.push({ descricao, valor });
-                    document.getElementById("descricao").value = "";
-                      document.getElementById("valor").value = "";
-                        atualizarLista();
-                        });
+  // Resposta da IA (simulada)
+  setTimeout(() => {
+    const botMsg = document.createElement("div");
+    botMsg.className = "message bot";
+    botMsg.innerText = "Entendi sua solicitação. Analisando...";
+    chatBox.appendChild(botMsg);
 
-                        dinheiroInput.addEventListener("input", atualizarResumo);
+    document.getElementById("result").classList.remove("hidden");
 
-                        function atualizarLista() {
-                          listaContas.innerHTML = "";
-                            contas.forEach((conta, index) => {
-                                const li = document.createElement("li");
-                                    li.innerHTML = `
-                                          <span>${conta.descricao}: R$ ${conta.valor.toFixed(2)}</span>
-                                                <button class="remove" onclick="removerConta(${index})">X</button>
-                                                    `;
-                                                        listaContas.appendChild(li);
-                                                          });
-                                                            atualizarResumo();
-                                                            }
+    document.getElementById("analysisText").innerText =
+      "Tipo: Acessibilidade Digital | Área: TI | Solução encontrada baseada em casos anteriores.";
 
-                                                            function removerConta(index) {
-                                                              contas.splice(index, 1);
-                                                                atualizarLista();
-                                                                }
+  }, 800);
 
-                                                                function atualizarResumo() {
-                                                                  const total = contas.reduce((soma, conta) => soma + conta.valor, 0);
-                                                                    const dinheiro = parseFloat(dinheiroInput.value) || 0;
-                                                                      totalContas.textContent = total.toFixed(2);
-                                                                        diferenca.textContent = (dinheiro - total).toFixed(2);
-                                                                        }
+  input.value = "";
+}
+
+function createTicket() {
+  document.getElementById("ticket").classList.remove("hidden");
+
+  document.getElementById("ticketInfo").innerText =
+    "Protocolo #84721 | Responsável: TI | Prazo: 48h";
+}
