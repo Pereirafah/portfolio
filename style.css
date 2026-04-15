@@ -9,7 +9,6 @@ body {
   height: 100vh;
 }
 
-/* SIDEBAR */
 .sidebar {
   width: 30%;
   background: #00693f;
@@ -27,7 +26,6 @@ body {
   background: #00a859;
 }
 
-/* CHAT */
 .chat {
   width: 70%;
   display: flex;
@@ -60,7 +58,6 @@ body {
   color: #00693f;
 }
 
-/* MENSAGENS */
 .chat-messages {
   flex: 1;
   padding: 15px;
@@ -101,7 +98,6 @@ body {
   color: #111;
 }
 
-/* INPUT */
 .chat-input {
   display: flex;
   padding: 10px;
