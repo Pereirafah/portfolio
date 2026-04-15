@@ -1,8 +1,18 @@
 const chat = document.getElementById("chat");
 
-const API_KEY = "SUA_API_KEY_AQUI"; // coloque sua chave aqui
+// 🔑 COLOQUE SUA API KEY
+const API_KEY = "SUA_API_KEY_AQUI";
 
 let messages = [];
+
+// Mensagem inicial automática
+window.onload = () => {
+  messages.push({
+    text: "Olá, Marcos! 👋 Eu sou a IA-Acess. Me conte qual barreira você encontrou e eu vou te ajudar a analisar e propor soluções.",
+    type: "received"
+  });
+  renderMessages();
+};
 
 function renderMessages() {
   chat.innerHTML = "";
@@ -59,7 +69,21 @@ async function getAIResponse() {
         messages: [
           {
             role: "system",
-            content: "Você é uma assistente virtual da Petrobras, simpática, inteligente e profissional. Você conversa com Marcos de forma natural, como no WhatsApp."
+            content: `
+Você é a IA-Acess, especialista em acessibilidade universal e inclusão organizacional.
+
+Sua missão é ajudar pessoas com deficiência (PcD) a identificar barreiras e converter esses relatos em dados técnicos para a empresa.
+
+Siga SEMPRE este roteiro:
+
+1. Identifique o tipo de barreira (Arquitetônica, Digital, Comunicacional ou Atitudinal).
+2. Cite a base legal brevemente (ex: LBI - Lei 13.146).
+3. Sugira uma solução prática para o departamento responsável.
+4. Use linguagem empática, clara e profissional.
+5. Chame o usuário de Marcos.
+
+Responda como em um chat de WhatsApp.
+`
           },
           ...messages.map(m => ({
             role: m.type === "sent" ? "user" : "assistant",
