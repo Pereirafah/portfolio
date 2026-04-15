@@ -1,162 +1,155 @@
-const chat = document.getElementById("chat");
-const input = document.getElementById("inputMsg");
-
-// 🔑 COLOQUE SUA API AQUI
-const API_KEY = "SUA_API_KEY_AQUI";
-
 let messages = [];
-let etapa = "inicio";
+let etapa = 0;
+let perfilAcessibilidade = "";
 
-// ENTER PARA ENVIAR ⌨️
-input.addEventListener("keypress", function(e) {
-  if (e.key === "Enter") {
-    sendMessage();
-  }
-});
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
 
+const userName = localStorage.getItem("userName") || "Marcos";
+
+/* INICIAR */
+startChat();
+
+function startChat() {
+  messages.push({
+    text: `Olá ${userName} 👋
+
+Eu sou a Petrina 🤖  
+Especialista em acessibilidade e inclusão.
+
+Você possui alguma necessidade de acessibilidade?`,
+    type: "received",
+    buttons: [
+      { text: "Sim", value: "1" },
+      { text: "Não", value: "2" }
+    ]
+  });
+
+  renderMessages();
+}
+
+/* BOTÕES */
+function createButtons(options) {
+  const div = document.createElement("div");
+
+  options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.innerText = opt.text;
+    btn.onclick = () => {
+      input.value = opt.value;
+      sendMessage();
+    };
+    div.appendChild(btn);
+  });
+
+  return div;
+}
+
+/* RENDER */
 function renderMessages() {
   chat.innerHTML = "";
 
   messages.forEach(msg => {
-    const row = document.createElement("div");
-    row.classList.add("message-row");
-
-    if (msg.type === "received") {
-      row.classList.add("bot");
-
-      const avatar = document.createElement("img");
-      avatar.src = "assistente.png";
-      row.appendChild(avatar);
-    }
-
     const div = document.createElement("div");
-    div.classList.add("msg", msg.type);
+    div.classList.add("message", msg.type);
     div.innerText = msg.text;
 
-    row.appendChild(div);
-    chat.appendChild(row);
+    if (msg.buttons) {
+      div.appendChild(createButtons(msg.buttons));
+    }
+
+    chat.appendChild(div);
   });
 
   chat.scrollTop = chat.scrollHeight;
 }
 
-async function sendMessage() {
-  const text = input.value.toLowerCase().trim();
-
+/* ENVIAR */
+function sendMessage() {
+  const text = input.value.trim();
   if (!text) return;
 
-  messages.push({ text: text, type: "sent" });
+  messages.push({ text, type: "sent" });
   input.value = "";
+
+  handleBot(text);
   renderMessages();
+}
 
-  // 🔹 INÍCIO
-  if (text === "oi" || text === "olá") {
-    etapa = "menu";
+/* ENTER */
+input.addEventListener("keypress", e => {
+  if (e.key === "Enter") sendMessage();
+});
 
+/* IA */
+function handleBot(text) {
+
+  if (etapa === 0) {
+    if (text === "1") {
+      etapa = 1;
+      messages.push({
+        text: `Entendi, Marcos 💚
+
+Qual tipo de necessidade você possui?`,
+        type: "received",
+        buttons: [
+          { text: "Visual 👁️", value: "1" },
+          { text: "Auditiva 🔊", value: "2" },
+          { text: "Mobilidade 🦽", value: "3" },
+          { text: "Cognitiva 🧠", value: "4" }
+        ]
+      });
+    } else {
+      etapa = 2;
+      showMenu();
+    }
+  }
+
+  else if (etapa === 1) {
+    switch (text) {
+      case "1": perfilAcessibilidade = "visual"; break;
+      case "2": perfilAcessibilidade = "auditiva"; break;
+      case "3": perfilAcessibilidade = "mobilidade"; break;
+      case "4": perfilAcessibilidade = "cognitiva"; break;
+    }
+    etapa = 2;
+    showMenu();
+  }
+
+  else if (etapa === 2) {
+    if (text === "1") {
+      etapa = 3;
+      messages.push({
+        text: "Descreva a barreira que você encontrou.",
+        type: "received"
+      });
+    }
+  }
+
+  else if (etapa === 3) {
     messages.push({
-      text: `Olá Marcos 👋
+      text: `Obrigado pelo relato, Marcos 💚
 
-Eu sou a Petrina 🤖
-Especialista em acessibilidade e inclusão.
-
-Como posso te ajudar?
-
-1 - Relatar uma barreira
-2 - Saber sobre acessibilidade
-3 - Falar com atendente`,
+📌 Tipo de barreira: Arquitetônica  
+📖 Base legal: Lei Brasileira de Inclusão (Lei 13.146)  
+✅ Solução: Adaptar acessos com rampas, sinalização ou elevadores.`,
       type: "received"
     });
 
-    renderMessages();
-    return;
-  }
-
-  // 🔹 MENU
-  if (etapa === "menu") {
-
-    if (text === "1") {
-      etapa = "relato";
-
-      messages.push({
-        text: "Perfeito, Marcos! 👍\n\nDescreva a barreira que você encontrou.",
-        type: "received"
-      });
-
-      renderMessages();
-      return;
-    }
-
-    if (text === "2") {
-      messages.push({
-        text: "A acessibilidade garante que todas as pessoas possam usar serviços e ambientes com autonomia e segurança, conforme a Lei Brasileira de Inclusão (Lei 13.146).",
-        type: "received"
-      });
-
-      renderMessages();
-      return;
-    }
-
-    if (text === "3") {
-      messages.push({
-        text: "Ok, Marcos! Vou encaminhar você para um atendente humano.",
-        type: "received"
-      });
-
-      renderMessages();
-      return;
-    }
-  }
-
-  // 🔹 RELATO → IA responde
-  if (etapa === "relato") {
-    const reply = await getAIResponse(text);
-
-    messages.push({ text: reply, type: "received" });
-    renderMessages();
-    return;
+    etapa = 2;
+    showMenu();
   }
 }
 
-// 🤖 IA PETRINA
-async function getAIResponse(userText) {
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + API_KEY,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: `
-Você é a Petrina, especialista em acessibilidade universal e inclusão organizacional.
-
-Sua missão é ajudar pessoas com deficiência (PcD) a identificar barreiras e converter esses relatos em dados técnicos para a empresa.
-
-Siga SEMPRE:
-
-1. Identifique o tipo de barreira (Arquitetônica, Digital, Comunicacional ou Atitudinal)
-2. Cite a base legal (Lei Brasileira de Inclusão - Lei 13.146)
-3. Sugira solução prática
-4. Use linguagem empática
-5. Chame o usuário de Marcos
-`
-          },
-          {
-            role: "user",
-            content: userText
-          }
-        ]
-      })
-    });
-
-    const data = await response.json();
-    return data.choices[0].message.content;
-
-  } catch (error) {
-    return "Erro ao conectar com a Petrina 😢";
-  }
+/* MENU */
+function showMenu() {
+  messages.push({
+    text: `Como posso te ajudar?`,
+    type: "received",
+    buttons: [
+      { text: "🚧 Relatar barreira", value: "1" },
+      { text: "📚 Sobre acessibilidade", value: "2" },
+      { text: "👨‍💼 Falar com atendente", value: "3" }
+    ]
+  });
 }

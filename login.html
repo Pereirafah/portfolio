@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Petrina</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-box">
+    <h2>Login Petrina</h2>
+
+    <input type="email" id="email" placeholder="Email"><br>
+    <input type="password" id="password" placeholder="Senha"><br>
+
+    <button onclick="login()">Entrar</button>
+
+    <p id="error" style="color:red; display:none;">Email ou senha incorretos</p>
+  </div>
+</div>
+
+<script>
+function login() {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("password").value;
+
+  if (email === "marcos@petrobras.com.br" && senha === "Inovvaflow01") {
+    localStorage.setItem("userName", "Marcos");
+    window.location.href = "chat.html";
+  } else {
+    document.getElementById("error").style.display = "block";
+  }
+}
+</script>
+
+</body>
+</html>
