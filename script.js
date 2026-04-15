@@ -1,37 +1,53 @@
-function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chat-box");
+const chat = document.getElementById("chat");
 
-  const userText = input.value;
-
-  if (!userText) return;
-
-  // Mensagem do usuário
-  const userMsg = document.createElement("div");
-  userMsg.className = "message user";
-  userMsg.innerText = userText;
-  chatBox.appendChild(userMsg);
-
-  // Resposta da IA (simulada)
-  setTimeout(() => {
-    const botMsg = document.createElement("div");
-    botMsg.className = "message bot";
-    botMsg.innerText = "Entendi sua solicitação. Analisando...";
-    chatBox.appendChild(botMsg);
-
-    document.getElementById("result").classList.remove("hidden");
-
-    document.getElementById("analysisText").innerText =
-      "Tipo: Acessibilidade Digital | Área: TI | Solução encontrada baseada em casos anteriores.";
-
-  }, 800);
-
-  input.value = "";
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.classList.add("msg", type);
+  div.innerText = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
 }
 
-function createTicket() {
-  document.getElementById("ticket").classList.remove("hidden");
+function sendMessage() {
+  const input = document.getElementById("inputMsg");
+  const text = input.value;
 
-  document.getElementById("ticketInfo").innerText =
-    "Protocolo #84721 | Responsável: TI | Prazo: 48h";
+  if (!text) return;
+
+  addMessage("👤 " + text, "user");
+  input.value = "";
+
+  const status = document.getElementById("processStatus");
+  status.className = "processing";
+  status.innerText = "PROCESSANDO...";
+
+  setTimeout(() => {
+    const response = processAI(text);
+    addMessage("🤖 " + response, "bot");
+
+    status.className = "online";
+    status.innerText = "ATIVO";
+  }, 1000);
+}
+
+function processAI(text) {
+  text = text.toLowerCase();
+
+  if (text.includes("humano")) {
+    return "🔁 Transferindo para um atendente humano...";
+  }
+
+  if (text.includes("reclama")) {
+    return "😔 Sentimos muito! Vamos resolver isso.";
+  }
+
+  if (text.includes("pedido")) {
+    return "📦 Seu pedido está sendo processado!";
+  }
+
+  if (text.includes("oi") || text.includes("olá")) {
+    return "👋 Olá! Como posso te ajudar?";
+  }
+
+  return "🤖 Entendi sua mensagem: " + text;
 }

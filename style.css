@@ -1,84 +1,77 @@
 body {
   font-family: Arial, sans-serif;
-  background: #F4F6F7;
+  background: #0f172a;
+  color: #fff;
   margin: 0;
 }
 
 header {
-  background: #0A3D62;
-  color: white;
+  background: #020617;
   padding: 20px;
   text-align: center;
+  font-size: 22px;
+  font-weight: bold;
 }
 
-.chat-container {
-  max-width: 600px;
-  margin: 20px auto;
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-}
-
-#chat-box {
-  height: 200px;
-  overflow-y: auto;
-  margin-bottom: 10px;
-}
-
-.message {
-  padding: 8px;
-  margin: 5px 0;
-  border-radius: 8px;
-}
-
-.user {
-  background: #D6EAF8;
-  text-align: right;
-}
-
-.bot {
-  background: #E8F8F5;
-}
-
-.input-area {
-  display: flex;
-}
-
-input {
-  flex: 1;
-  padding: 10px;
-}
-
-button {
-  background: #2ECC71;
-  border: none;
-  color: white;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.hidden {
-  display: none;
-}
-
-section {
-  max-width: 600px;
-  margin: 20px auto;
-}
-
-.dashboard .cards {
-  display: flex;
-  gap: 10px;
+.container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
 }
 
 .card {
-  flex: 1;
-  background: white;
+  background: #1e293b;
   padding: 15px;
   border-radius: 10px;
-  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-.card.alert {
-  background: #FDEDEC;
+.status {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.status span {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.online { background: green; }
+.offline { background: red; }
+.processing { background: orange; }
+
+.messages {
+  height: 400px;
+  overflow-y: auto;
+  background: #020617;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.msg {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.user { background: #2563eb; }
+.bot { background: #16a34a; }
+
+input, button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+input {
+  width: 80%;
+}
+
+button {
+  background: #22c55e;
+  color: white;
+  cursor: pointer;
 }

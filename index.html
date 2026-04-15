@@ -1,66 +1,55 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Conexão Acessível</title>
+  <title>Painel WhatsApp Bot</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>🤖 Conexão Acessível</h1>
-  <p>IA para inclusão real</p>
+  🤖 Painel WhatsApp Automation (n8n + IA)
 </header>
 
-<main>
+<div class="container">
+
+  <!-- STATUS -->
+  <div class="card">
+    <h3>Status do Sistema</h3>
+
+    <div class="status">
+      Webhook
+      <span class="online">ONLINE</span>
+    </div>
+
+    <div class="status">
+      IA (GPT)
+      <span class="online">ATIVO</span>
+    </div>
+
+    <div class="status">
+      Redis
+      <span class="online">CONECTADO</span>
+    </div>
+
+    <div class="status">
+      Processamento
+      <span id="processStatus" class="offline">PARADO</span>
+    </div>
+  </div>
 
   <!-- CHAT -->
-  <section class="chat-container">
-    <div id="chat-box"></div>
+  <div class="card">
+    <h3>Simulador de Mensagens</h3>
 
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Digite sua necessidade..." />
-      <button onclick="sendMessage()">Enviar</button>
-    </div>
-  </section>
+    <div class="messages" id="chat"></div>
 
-  <!-- RESULTADO -->
-  <section id="result" class="hidden">
-    <h2>🔍 Análise da IA</h2>
-    <p id="analysisText"></p>
+    <br>
+    <input type="text" id="inputMsg" placeholder="Digite uma mensagem...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
 
-    <button onclick="createTicket()">Abrir chamado</button>
-  </section>
-
-  <!-- CHAMADO -->
-  <section id="ticket" class="hidden">
-    <h2>🎉 Chamado criado</h2>
-    <p id="ticketInfo"></p>
-  </section>
-
-  <!-- DASHBOARD -->
-  <section class="dashboard">
-    <h2>📊 Dashboard</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Tempo médio</h3>
-        <p>2,3 dias</p>
-      </div>
-
-      <div class="card">
-        <h3>Principal problema</h3>
-        <p>Sistemas internos</p>
-      </div>
-
-      <div class="card alert">
-        <h3>⚠️ Alerta</h3>
-        <p>Sistema de ponto com falhas</p>
-      </div>
-    </div>
-  </section>
-
-</main>
+</div>
 
 <script src="script.js"></script>
 </body>
