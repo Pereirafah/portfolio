@@ -2,51 +2,44 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Painel WhatsApp Bot</title>
+  <title>WhatsApp Clone</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  🤖 Painel WhatsApp Automation (n8n + IA)
-</header>
+<div class="app">
 
-<div class="container">
+  <!-- LADO ESQUERDO -->
+  <div class="sidebar">
+    <div class="header">Conversas</div>
 
-  <!-- STATUS -->
-  <div class="card">
-    <h3>Status do Sistema</h3>
-
-    <div class="status">
-      Webhook
-      <span class="online">ONLINE</span>
+    <div class="contact active" onclick="selectContact('João')">
+      João
     </div>
 
-    <div class="status">
-      IA (GPT)
-      <span class="online">ATIVO</span>
+    <div class="contact" onclick="selectContact('Maria')">
+      Maria
     </div>
 
-    <div class="status">
-      Redis
-      <span class="online">CONECTADO</span>
-    </div>
-
-    <div class="status">
-      Processamento
-      <span id="processStatus" class="offline">PARADO</span>
+    <div class="contact" onclick="selectContact('Suporte')">
+      Suporte
     </div>
   </div>
 
   <!-- CHAT -->
-  <div class="card">
-    <h3>Simulador de Mensagens</h3>
+  <div class="chat">
 
-    <div class="messages" id="chat"></div>
+    <div class="chat-header" id="chatHeader">
+      João
+    </div>
 
-    <br>
-    <input type="text" id="inputMsg" placeholder="Digite uma mensagem...">
-    <button onclick="sendMessage()">Enviar</button>
+    <div class="chat-messages" id="chat"></div>
+
+    <div class="chat-input">
+      <input type="text" id="inputMsg" placeholder="Digite uma mensagem...">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+
   </div>
 
 </div>

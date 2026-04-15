@@ -1,11 +1,28 @@
+let currentContact = "João";
+
 const chat = document.getElementById("chat");
 
-function addMessage(text, type) {
-  const div = document.createElement("div");
-  div.classList.add("msg", type);
-  div.innerText = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+const conversations = {
+  "João": [],
+  "Maria": [],
+  "Suporte": []
+};
+
+function selectContact(name) {
+  currentContact = name;
+  document.getElementById("chatHeader").innerText = name;
+  renderMessages();
+}
+
+function renderMessages() {
+  chat.innerHTML = "";
+
+  conversations[currentContact].forEach(msg => {
+    const div = document.createElement("div");
+    div.classList.add("msg", msg.type);
+    div.innerText = msg.text;
+    chat.appendChild(div);
+  });
 }
 
 function sendMessage() {
@@ -14,40 +31,32 @@ function sendMessage() {
 
   if (!text) return;
 
-  addMessage("👤 " + text, "user");
+  conversations[currentContact].push({
+    text: text,
+    type: "sent"
+  });
+
   input.value = "";
+  renderMessages();
 
-  const status = document.getElementById("processStatus");
-  status.className = "processing";
-  status.innerText = "PROCESSANDO...";
-
+  // resposta automática simulada
   setTimeout(() => {
-    const response = processAI(text);
-    addMessage("🤖 " + response, "bot");
+    conversations[currentContact].push({
+      text: autoReply(text),
+      type: "received"
+    });
 
-    status.className = "online";
-    status.innerText = "ATIVO";
+    renderMessages();
   }, 1000);
 }
 
-function processAI(text) {
+function autoReply(text) {
   text = text.toLowerCase();
 
-  if (text.includes("humano")) {
-    return "🔁 Transferindo para um atendente humano...";
-  }
+  if (text.includes("oi")) return "Olá! Tudo bem?";
+  if (text.includes("preço")) return "Vou verificar isso pra você.";
+  if (text.includes("ajuda")) return "Claro! Como posso ajudar?";
+  if (text.includes("humano")) return "Vou te transferir para um atendente.";
 
-  if (text.includes("reclama")) {
-    return "😔 Sentimos muito! Vamos resolver isso.";
-  }
-
-  if (text.includes("pedido")) {
-    return "📦 Seu pedido está sendo processado!";
-  }
-
-  if (text.includes("oi") || text.includes("olá")) {
-    return "👋 Olá! Como posso te ajudar?";
-  }
-
-  return "🤖 Entendi sua mensagem: " + text;
+  return "Entendi 👍";
 }
