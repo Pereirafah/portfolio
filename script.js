@@ -1,62 +1,78 @@
-let currentContact = "João";
-
 const chat = document.getElementById("chat");
 
-const conversations = {
-  "João": [],
-  "Maria": [],
-  "Suporte": []
-};
+const API_KEY = "SUA_API_KEY_AQUI"; // coloque sua chave aqui
 
-function selectContact(name) {
-  currentContact = name;
-  document.getElementById("chatHeader").innerText = name;
-  renderMessages();
-}
+let messages = [];
 
 function renderMessages() {
   chat.innerHTML = "";
 
-  conversations[currentContact].forEach(msg => {
+  messages.forEach(msg => {
+    const row = document.createElement("div");
+    row.classList.add("message-row");
+
+    if (msg.type === "received") {
+      row.classList.add("bot");
+
+      const avatar = document.createElement("img");
+      avatar.src = "assistente.png";
+      row.appendChild(avatar);
+    }
+
     const div = document.createElement("div");
     div.classList.add("msg", msg.type);
     div.innerText = msg.text;
-    chat.appendChild(div);
+
+    row.appendChild(div);
+    chat.appendChild(row);
   });
+
+  chat.scrollTop = chat.scrollHeight;
 }
 
-function sendMessage() {
+async function sendMessage() {
   const input = document.getElementById("inputMsg");
   const text = input.value;
 
   if (!text) return;
 
-  conversations[currentContact].push({
-    text: text,
-    type: "sent"
-  });
-
+  messages.push({ text: text, type: "sent" });
   input.value = "";
   renderMessages();
 
-  // resposta automática simulada
-  setTimeout(() => {
-    conversations[currentContact].push({
-      text: autoReply(text),
-      type: "received"
-    });
+  const reply = await getAIResponse();
 
-    renderMessages();
-  }, 1000);
+  messages.push({ text: reply, type: "received" });
+  renderMessages();
 }
 
-function autoReply(text) {
-  text = text.toLowerCase();
+async function getAIResponse() {
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "system",
+            content: "Você é uma assistente virtual da Petrobras, simpática, inteligente e profissional. Você conversa com Marcos de forma natural, como no WhatsApp."
+          },
+          ...messages.map(m => ({
+            role: m.type === "sent" ? "user" : "assistant",
+            content: m.text
+          }))
+        ]
+      })
+    });
 
-  if (text.includes("oi")) return "Olá! Tudo bem?";
-  if (text.includes("preço")) return "Vou verificar isso pra você.";
-  if (text.includes("ajuda")) return "Claro! Como posso ajudar?";
-  if (text.includes("humano")) return "Vou te transferir para um atendente.";
+    const data = await response.json();
+    return data.choices[0].message.content;
 
-  return "Entendi 👍";
+  } catch (error) {
+    return "Erro ao conectar com a IA 😢";
+  }
 }

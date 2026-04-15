@@ -2,35 +2,28 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>WhatsApp Clone</title>
+  <title>Chat IA Petrobras</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
 
-  <!-- LADO ESQUERDO -->
+  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="header">Conversas</div>
-
-    <div class="contact active" onclick="selectContact('João')">
-      João
-    </div>
-
-    <div class="contact" onclick="selectContact('Maria')">
-      Maria
-    </div>
-
-    <div class="contact" onclick="selectContact('Suporte')">
-      Suporte
-    </div>
+    <div class="contact active">Assistente IA</div>
   </div>
 
   <!-- CHAT -->
   <div class="chat">
 
-    <div class="chat-header" id="chatHeader">
-      João
+    <div class="chat-header">
+      <img src="assistente.png" class="avatar">
+      <div>
+        <div class="name">Assistente IA</div>
+        <div class="status">Online</div>
+      </div>
     </div>
 
     <div class="chat-messages" id="chat"></div>

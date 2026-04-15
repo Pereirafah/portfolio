@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #111;
+  background: #f5f5f5;
 }
 
 .app {
@@ -12,28 +12,19 @@ body {
 /* SIDEBAR */
 .sidebar {
   width: 30%;
-  background: #202c33;
+  background: #00693f;
   color: white;
 }
 
 .header {
   padding: 15px;
-  background: #111b21;
+  background: #004d2c;
   font-weight: bold;
 }
 
 .contact {
   padding: 15px;
-  border-bottom: 1px solid #2a3942;
-  cursor: pointer;
-}
-
-.contact:hover {
-  background: #2a3942;
-}
-
-.active {
-  background: #2a3942;
+  background: #00a859;
 }
 
 /* CHAT */
@@ -41,45 +32,80 @@ body {
   width: 70%;
   display: flex;
   flex-direction: column;
-  background: #0b141a;
+  background: #ffffff;
 }
 
 .chat-header {
-  padding: 15px;
-  background: #202c33;
-  color: white;
+  padding: 10px;
+  background: #ffd100;
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
   font-weight: bold;
 }
 
+.status {
+  font-size: 12px;
+  color: #00693f;
+}
+
+/* MENSAGENS */
 .chat-messages {
   flex: 1;
   padding: 15px;
   overflow-y: auto;
+  background: #f9fafb;
 }
 
-/* MENSAGENS */
+.message-row {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.message-row.bot {
+  gap: 8px;
+}
+
+.message-row img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 .msg {
   max-width: 60%;
   padding: 10px;
-  margin-bottom: 10px;
   border-radius: 10px;
-  color: white;
 }
 
 .sent {
-  background: #005c4b;
+  background: #00693f;
+  color: white;
   margin-left: auto;
 }
 
 .received {
-  background: #202c33;
+  background: #e5e7eb;
+  color: #111;
 }
 
 /* INPUT */
 .chat-input {
   display: flex;
   padding: 10px;
-  background: #202c33;
+  background: #ffd100;
 }
 
 .chat-input input {
@@ -94,7 +120,7 @@ body {
   padding: 10px 15px;
   border: none;
   border-radius: 50%;
-  background: #00a884;
+  background: #00693f;
   color: white;
   cursor: pointer;
 }
